@@ -7,6 +7,7 @@ using Customer.API.Services.Interfaces;
 using Customer.API.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Customer.API.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(Serilogger.Configure);
@@ -29,6 +30,10 @@ try
        .AddScoped<ICustomerService, CustomerService>();
 
     var app = builder.Build();
+
+    app.MapGet("/", () => $"Welcome to {builder.Environment.ApplicationName}");
+
+    app.MapCustomersAPI();
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())

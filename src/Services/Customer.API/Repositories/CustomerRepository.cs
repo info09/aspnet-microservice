@@ -1,6 +1,7 @@
 ﻿using Customer.API.Persistence;
 using Customer.API.Repositories.Interfaces;
 using Infrastructure.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Customer.API.Repositories
 {
@@ -12,7 +13,7 @@ namespace Customer.API.Repositories
 
         public Task<Entities.Customer> GetCustomerByUserNameAsync(string username)
         {
-            throw new NotImplementedException();
+            return FindByCondition(i => i.UserName.Equals(username)).SingleOrDefaultAsync();
         }
     }
 }

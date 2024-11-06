@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Shared.Dtos.Customer;
 
 namespace Customer.API
 {
@@ -6,7 +7,7 @@ namespace Customer.API
     {
         public MappingProfile()
         {
-            
+            CreateMap<Entities.Customer, CustomerDto>();
         }
     }
 }
