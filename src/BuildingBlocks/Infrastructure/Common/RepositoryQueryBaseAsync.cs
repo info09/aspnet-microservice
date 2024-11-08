@@ -5,7 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Common;
 
-public class RepositoryQueryBaseAsync<T, K, TContext> : IRepositoryQueryBaseAsync<T, K, TContext>
+public class RepositoryQueryBaseAsync<T, K>
+    where T : EntityBase<K>
+{
+
+}
+public class RepositoryQueryBaseAsync<T, K, TContext> : RepositoryQueryBaseAsync<T, K>, IRepositoryQueryBase<T, K, TContext>
     where T : EntityBase<K>
     where TContext : DbContext
 {

@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Infrastructure.Common;
 
-public class RepositoryBaseAsync<T, K, TContext> : RepositoryQueryBaseAsync<T, K, TContext>, IRepositoryBaseAsync<T, K, TContext> where T : EntityBase<K> where TContext : DbContext
+public class RepositoryBaseAsync<T, K, TContext> : RepositoryQueryBaseAsync<T, K, TContext>,
+    IRepositoryBaseAsync<T, K, TContext>
+    where T : EntityBase<K>
+    where TContext : DbContext
 {
     private readonly TContext _dbContext;
     private readonly IUnitOfWork<TContext> _unitOfWork;
