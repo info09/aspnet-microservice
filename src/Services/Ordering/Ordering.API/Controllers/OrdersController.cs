@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Contracts.Services;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Common.Models;
@@ -12,10 +13,12 @@ namespace Ordering.API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ISmtpEmailService _smtpEmailService;
 
-        public OrdersController(IMediator mediator)
+        public OrdersController(IMediator mediator, ISmtpEmailService smtpEmailService)
         {
             _mediator = mediator;
+            _smtpEmailService = smtpEmailService;
         }
 
         private static class RouteNames
@@ -32,6 +35,16 @@ namespace Ordering.API.Controllers
             return Ok(orders);
         }
 
-
+        [HttpGet]
+        public async Task<IActionResult> SendEmail()
+        {
+            await _smtpEmailService.SendEmailAsync(new Shared.Services.Email.MailRequest()
+            {
+                Subject = "Demo",
+                ToAddress = "huytq@ics-p.vn",
+                Body ="Hello World"
+            });
+            return Ok();
+        }
     }
 }
