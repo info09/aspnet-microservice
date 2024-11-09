@@ -1,3 +1,4 @@
+using Basket.API;
 using Basket.API.Extensions;
 using Common.Logging;
 using Serilog;
@@ -10,10 +11,14 @@ Log.Information("Start Basket API up");
 try
 {
     builder.Host.AddApplicationConfigurations();
+    builder.Services.AddConfigurationSettings(builder.Configuration);
+    builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
     // Add services to the container.
     builder.Services.ConfigureServices();
     builder.Services.ConfigureRedis(builder.Configuration);
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
+    builder.Services.ConfigureMassTransit();
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
