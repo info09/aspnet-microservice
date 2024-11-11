@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace Ordering.Domain.Entities
         [Required]
         [Column(TypeName = "nvarchar(150)")]
         public string UserName { get; set; }
+
+        //public Guid DocumentNo { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal TotalPrice { get; set; }
@@ -39,5 +42,23 @@ namespace Ordering.Domain.Entities
         public string InvoiceAddress { get; set; }
 
         public EOrderStatus Status { get; set; }
+
+        [NotMapped]
+        public string FullName => FirstName + " " + LastName;
+
+        //public Order AddedOrder()
+        //{
+        //    AddDomainEvent(new OrderCreatedEvent(Id, UserName,
+        //        TotalPrice, DocumentNo.ToString(),
+        //        EmailAddress, ShippingAddress,
+        //        InvoiceAddress, FullName));
+        //    return this;
+        //}
+
+        //public Order DeletedOrder()
+        //{
+        //    AddDomainEvent(new OrderDeletedEvent(Id));
+        //    return this;
+        //}
     }
 }
