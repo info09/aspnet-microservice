@@ -16,8 +16,8 @@ namespace Basket.API.Extensions
         public static IServiceCollection AddConfigurationSettings(this IServiceCollection services,
         IConfiguration configuration)
         {
-            var eventBusSettings = configuration.GetSection(nameof(EventBusSetting))
-                .Get<EventBusSetting>();
+            var eventBusSettings = configuration.GetSection(nameof(EventBusSettings))
+                .Get<EventBusSettings>();
             services.AddSingleton(eventBusSettings);
             var cacheSettings = configuration.GetSection(nameof(CacheSettings))
                 .Get<CacheSettings>();
@@ -44,7 +44,7 @@ namespace Basket.API.Extensions
 
         public static void ConfigureMassTransit(this IServiceCollection services)
         {
-            var settings = services.GetOptions<EventBusSetting>("EventBusSettings");
+            var settings = services.GetOptions<EventBusSettings>("EventBusSettings");
             if(settings == null || string.IsNullOrEmpty(settings.HostAddress))
                 throw new ArgumentNullException("EventBusSettings is not configured!");
 

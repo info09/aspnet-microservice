@@ -1,6 +1,6 @@
 ﻿namespace Shared.Configurations
 {
-    public class EventBusSetting
+    public class EventBusSettings
     {
         public string HostAddress { get; set; }
     }
