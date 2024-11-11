@@ -1,17 +1,41 @@
-﻿using Contracts.Domains.Interfaces;
+﻿using Contracts.Common.Events;
+using Contracts.Common.Interfaces;
+using Contracts.Domains.Interfaces;
+using Infrastructure.Extensions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.Entities;
+using Serilog;
 using System.Reflection;
 
 namespace Ordering.Infrastructure.Persistence
 {
     public class OrderContext : DbContext
     {
-        public OrderContext(DbContextOptions<OrderContext> options) : base(options)
+        private readonly IMediator _mediator;
+        private readonly ILogger _logger;
+        public OrderContext(DbContextOptions<OrderContext> options, IMediator mediator = null, ILogger logger = null) : base(options)
         {
+            _mediator = mediator;
+            _logger = logger;
         }
 
         public DbSet<Order> Orders { get; set; }
+        private List<BaseEvent> _baseEvents;
+
+        private void SetBaseEventsBeforeSaveChanges()
+        {
+            var domainEntities = ChangeTracker.Entries<IEventEntity>()
+                .Select(x => x.Entity)
+                .Where(x => x.DomainEvents().Any())
+                .ToList();
+
+            _baseEvents = domainEntities
+                .SelectMany(x => x.DomainEvents())
+                .ToList();
+
+            domainEntities.ForEach(x => x.ClearDomainEvents());
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,8 +43,9 @@ namespace Ordering.Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            SetBaseEventsBeforeSaveChanges();
             var modified = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added || e.State == EntityState.Deleted);
 
             foreach (var item in modified)
@@ -45,7 +70,12 @@ namespace Ordering.Infrastructure.Persistence
                         break;
                 }
             }
-            return base.SaveChangesAsync(cancellationToken);
+
+            await _mediator.DispatchDomainEventsAsync(_baseEvents, _logger);
+
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            return result;
         }
     }
 }
