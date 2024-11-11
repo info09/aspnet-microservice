@@ -6,7 +6,7 @@ using Ordering.Application.Features.Orders.Common;
 using Ordering.Domain.Entities;
 using Shared.SeedWorks;
 
-namespace Ordering.Application.Features.Orders.CreateOrder
+namespace Ordering.Application.Features.Orders.Command.CreateOrder
 {
     public class CreateOrderCommand : CreateOrUpdateCommand, IRequest<ApiResult<long>>, IMapFrom<Order>, IMapFrom<BasketCheckoutEvent>
     {

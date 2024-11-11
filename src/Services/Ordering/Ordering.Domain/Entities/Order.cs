@@ -1,23 +1,19 @@
-﻿using Contracts.Domains;
+﻿using Contracts.Common.Events;
+using Contracts.Common.Interfaces;
 using Ordering.Domain.Enums;
-using System;
-using System.Collections.Generic;
+using Ordering.Domain.OrderAggregate.Events;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ordering.Domain.Entities
 {
-    public class Order : EntityAuditBase<long>
+    public class Order : AuditableEventEntity<long>, IEventEntity
     {
         [Required]
         [Column(TypeName = "nvarchar(150)")]
         public string UserName { get; set; }
 
-        //public Guid DocumentNo { get; set; } = Guid.NewGuid();
+        public Guid DocumentNo { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal TotalPrice { get; set; }
@@ -46,19 +42,19 @@ namespace Ordering.Domain.Entities
         [NotMapped]
         public string FullName => FirstName + " " + LastName;
 
-        //public Order AddedOrder()
-        //{
-        //    AddDomainEvent(new OrderCreatedEvent(Id, UserName,
-        //        TotalPrice, DocumentNo.ToString(),
-        //        EmailAddress, ShippingAddress,
-        //        InvoiceAddress, FullName));
-        //    return this;
-        //}
+        public Order AddedOrder()
+        {
+            AddDomainEvent(new OrderCreatedEvent(Id, UserName,
+                TotalPrice, DocumentNo.ToString(),
+                EmailAddress, ShippingAddress,
+                InvoiceAddress, FullName));
+            return this;
+        }
 
-        //public Order DeletedOrder()
-        //{
-        //    AddDomainEvent(new OrderDeletedEvent(Id));
-        //    return this;
-        //}
+        public Order DeletedOrder()
+        {
+            AddDomainEvent(new OrderDeletedEvent(Id));
+            return this;
+        }
     }
 }

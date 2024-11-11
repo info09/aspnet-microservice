@@ -2,7 +2,7 @@
 using EventBus.Messages.IntegrationEvents.Events;
 using MassTransit;
 using MediatR;
-using Ordering.Application.Features.Orders.CreateOrder;
+using Ordering.Application.Features.Orders.Command.CreateOrder;
 using ILogger = Serilog.ILogger;
 
 namespace Ordering.API.Application.IntegrationEvents.EventsHanler

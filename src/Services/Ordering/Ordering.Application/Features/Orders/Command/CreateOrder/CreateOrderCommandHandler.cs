@@ -7,7 +7,7 @@ using Serilog;
 using Shared.SeedWorks;
 using Shared.Services.Email;
 
-namespace Ordering.Application.Features.Orders.CreateOrder
+namespace Ordering.Application.Features.Orders.Command.CreateOrder
 {
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, ApiResult<long>>
     {
@@ -28,10 +28,11 @@ namespace Ordering.Application.Features.Orders.CreateOrder
             _logger.Information($"BEGIN: {MethodName} - Username: {request.UserName}");
 
             var orderEntity = _mapper.Map<Order>(request);
+            orderEntity.AddedOrder();
             var addedOrder = await _orderRepository.CreateAsync(orderEntity);
             await _orderRepository.SaveChangesAsync();
 
-            //_logger.Information($"Order {orderEntity.Id} - Document No: {orderEntity.DocumentNo} was successfully created.");
+            _logger.Information($"Order {orderEntity.Id} - Document No: {orderEntity.DocumentNo} was successfully created.");
 
 
             _logger.Information($"END: {MethodName} - Username: {request.UserName}");
