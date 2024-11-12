@@ -8,6 +8,8 @@ using Infrastructure.Extensions;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using MassTransit;
 using EventBus.Messages.IntegrationEvents.Interfaces;
+using Basket.API.GrpcService;
+using Inventory.Grpc.Client;
 
 namespace Basket.API.Extensions
 {
@@ -29,6 +31,14 @@ namespace Basket.API.Extensions
         public static IServiceCollection ConfigureServices(this IServiceCollection services) => 
             services.AddScoped<IBasketRepository, BasketRepository>()
                     .AddTransient<ISerializeService, SerializeService>();
+
+        public static IServiceCollection ConfigureGrpcService(this IServiceCollection services)
+        {
+            var settings = services.GetOptions<GrpcSettings>(nameof(GrpcSettings));
+            services.AddGrpcClient<StockProtoService.StockProtoServiceClient>(i => i.Address = new Uri(settings.StockUrl));
+            services.AddScoped<StockItemGrpcService>();
+            return services;
+        }
 
         public static void ConfigureRedis(this IServiceCollection services, IConfiguration configuration)
         {

@@ -16,6 +16,7 @@ try
     // Add services to the container.
     builder.Services.ConfigureServices();
     builder.Services.ConfigureRedis(builder.Configuration);
+    builder.Services.ConfigureGrpcService();
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
     builder.Services.ConfigureMassTransit();
