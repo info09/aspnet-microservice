@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Customer.Grpc.Protos";
+
+service FullNameProtoService{
+	rpc GetFullName(GetFullNameRequest) returns (FullNameResponse);
+}
+
+message GetFullNameRequest{
+	string userName = 1;;
+}
+
+message FullNameResponse{
+	string fullName = 1;
+}

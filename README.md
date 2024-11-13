@@ -16,3 +16,4 @@ BasketAPI - Quản lý giỏ hàng: http://localhost:5004/
 OrderAPI - Quản lý order: http://localhost:5005/
 InventoryAPI - Quản lý kho: http://localhost:5006/
 Inventory.Grpc: http://localhost:5007/
+Customer.Grpc: http://localhost:5009/

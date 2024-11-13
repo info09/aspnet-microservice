@@ -12,7 +12,7 @@ using Customer.API.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(Serilogger.Configure);
 
-Log.Information("Start Basket API up");
+Log.Information($"Start {builder.Environment.ApplicationName} up");
 
 try
 {

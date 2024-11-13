@@ -10,6 +10,7 @@ using MassTransit;
 using EventBus.Messages.IntegrationEvents.Interfaces;
 using Basket.API.GrpcService;
 using Inventory.Grpc.Client;
+using Customer.Grpc.Client;
 
 namespace Basket.API.Extensions
 {
@@ -37,6 +38,9 @@ namespace Basket.API.Extensions
             var settings = services.GetOptions<GrpcSettings>(nameof(GrpcSettings));
             services.AddGrpcClient<StockProtoService.StockProtoServiceClient>(i => i.Address = new Uri(settings.StockUrl));
             services.AddScoped<StockItemGrpcService>();
+
+            services.AddGrpcClient<FullNameProtoService.FullNameProtoServiceClient>(i => i.Address = new Uri(settings.GetFullNameUrl));
+            services.AddScoped<FullNameItemGrpcService>();
             return services;
         }
 
