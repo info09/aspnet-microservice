@@ -19,13 +19,15 @@ namespace Basket.API.Controllers
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IMapper _mapper;
         private readonly StockItemGrpcService _stockItemGrpcService;
+        private readonly FullNameItemGrpcService _fullNameItemGrpcService;
 
-        public BasketsController(IBasketRepository basketRepository, IPublishEndpoint publishEndpoint, IMapper mapper, StockItemGrpcService stockItemGrpcService = null)
+        public BasketsController(IBasketRepository basketRepository, IPublishEndpoint publishEndpoint, IMapper mapper, StockItemGrpcService stockItemGrpcService = null, FullNameItemGrpcService fullNameItemGrpcService = null)
         {
             _basketRepository = basketRepository;
             _publishEndpoint = publishEndpoint;
             _mapper = mapper;
             _stockItemGrpcService = stockItemGrpcService;
+            _fullNameItemGrpcService = fullNameItemGrpcService;
         }
 
         [HttpGet("{username}", Name = "GetBasket")]
@@ -41,6 +43,9 @@ namespace Basket.API.Controllers
         [ProducesResponseType(typeof(Cart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Cart>> UpdateBasket([FromBody] Cart cart)
         {
+            // Communicate with Customer.Grpc and check quantity available
+            var fullNamResponse = await _fullNameItemGrpcService.GetFullName(cart.UserName);
+            cart.SetFullName(fullNamResponse.FullName);
             // Communicate with Inventory.Grpc and check quantity available
             foreach (var item in cart.Items)
             {
