@@ -13,6 +13,11 @@ namespace Ordering.Infrastructure.Repositories
         {
         }
 
+        public Task<Order> GetOrderByDocumentNoAsync(string documentNo)
+        {
+            return FindByCondition(i => i.DocumentNo.ToString().Equals(documentNo)).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Order>> GetOrdersByUserName(string userName)
         {
             return await FindByCondition(i => i.UserName == userName).ToListAsync();

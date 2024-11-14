@@ -4,11 +4,11 @@ using Shared.SeedWorks;
 
 namespace Ordering.Application.Features.Orders.Queries.GetOrders
 {
-    public class GetOrdersQuery : IRequest<ApiResult<List<OrderDto>>>
+    public class GetOrdersByUserNameQuery : IRequest<ApiResult<List<OrderDto>>>
     {
         public string Username { get; set; }
 
-        public GetOrdersQuery(string username)
+        public GetOrdersByUserNameQuery(string username)
         {
             Username = username;
         }

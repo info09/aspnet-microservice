@@ -24,7 +24,8 @@ namespace Ordering.Application.Features.Orders
 
         public Task Handle(OrderDeletedEvent notification, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            _logger.Information("Ordering Domain Event: {DomainEvent}", notification.GetType().Name);
+            return Task.CompletedTask;
         }
 
         public Task Handle(OrderCreatedEvent notification, CancellationToken cancellationToken)

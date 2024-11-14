@@ -7,20 +7,20 @@ using Shared.SeedWorks;
 
 namespace Ordering.Application.Features.Orders.Queries.GetOrders
 {
-    public class GetOrdersHandler : IRequestHandler<GetOrdersQuery, ApiResult<List<OrderDto>>>
+    public class GetOrdersByUserNameHandler : IRequestHandler<GetOrdersByUserNameQuery, ApiResult<List<OrderDto>>>
     {
         private readonly IMapper _mapper;
         private readonly IOrderRepository _orderRepository;
         private readonly ILogger _logger;
 
-        public GetOrdersHandler(IMapper mapper, IOrderRepository orderRepository, ILogger logger)
+        public GetOrdersByUserNameHandler(IMapper mapper, IOrderRepository orderRepository, ILogger logger)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
             _logger = logger;
         }
         private const string MethodName = "GetOrdersQueryHandler";
-        public async Task<ApiResult<List<OrderDto>>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
+        public async Task<ApiResult<List<OrderDto>>> Handle(GetOrdersByUserNameQuery request, CancellationToken cancellationToken)
         {
             _logger.Information($"BEGIN: {MethodName} - Username: {request.Username}");
 
