@@ -75,7 +75,6 @@ namespace Product.API.Controllers
                 return NotFound();
 
             await _productRepository.DeleteProduct(id);
-            await _productRepository.SaveChangesAsync();
             return NoContent();
         }
 
@@ -97,3 +96,4 @@ namespace Product.API.Controllers
         #endregion
     }
 }
+    

@@ -35,16 +35,16 @@ namespace Ordering.API.Controllers
             return Ok(orders);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SendEmail()
-        {
-            await _smtpEmailService.SendEmailAsync(new Shared.Services.Email.MailRequest()
-            {
-                Subject = "Demo",
-                ToAddress = "huytq@ics-p.vn",
-                Body ="Hello World"
-            });
-            return Ok();
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> SendEmail()
+        //{
+        //    await _smtpEmailService.SendEmailAsync(new Shared.Services.Email.MailRequest()
+        //    {
+        //        Subject = "Demo",
+        //        ToAddress = "huytq@ics-p.vn",
+        //        Body ="Hello World"
+        //    });
+        //    return Ok();
+        //}
     }
 }

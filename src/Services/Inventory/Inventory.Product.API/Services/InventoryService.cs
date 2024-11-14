@@ -29,7 +29,8 @@ namespace Inventory.Product.API.Services
         public async Task<PagedList<InventoryEntryDto>> GetAllByItemNoPagingAsync(GetInventoryPagingQuery query)
         {
             var filterSearchTerm = Builders<InventoryEntry>.Filter.Empty;
-            var filterItemNo = Builders<InventoryEntry>.Filter.Eq(s => s.ItemNo, query.ItemNo());
+            var filterItemNo = Builders<InventoryEntry>.Filter.Regex(s => s.ItemNo,new BsonRegularExpression(query.ItemNo(), "i"));
+            //var filterItemNo = Builders<InventoryEntry>.Filter.Eq(s => s.ItemNo, query.ItemNo());
             if (!string.IsNullOrEmpty(query.SearchTerm))
                 filterSearchTerm = Builders<InventoryEntry>.Filter.Eq(s => s.DocumentNo, query.SearchTerm);
 
@@ -58,6 +59,8 @@ namespace Inventory.Product.API.Services
                 ItemNo = itemNo,
                 Quantity = model.Quantity,
                 DocumentType = model.DocumentType,
+                DocumentNo = Guid.NewGuid().ToString(),
+                ExternalDocumentNo = Guid.NewGuid().ToString()
             };
             var entity = _mapper.Map<InventoryEntry>(itemToAdd);
             await CreateAsync(entity);
