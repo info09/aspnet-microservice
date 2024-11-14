@@ -3,11 +3,6 @@ using MediatR;
 using Ordering.Domain.OrderAggregate.Events;
 using Serilog;
 using Shared.Services.Email;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ordering.Application.Features.Orders
 {
