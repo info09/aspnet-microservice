@@ -1,5 +1,6 @@
 using Common.Logging;
 using Infrastructure.Middlewares;
+using Ocelot.Middleware;
 using OcelotApiGw.Extensions;
 using Serilog;
 
@@ -39,6 +40,8 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+
+    await app.UseOcelot();
 
     app.Run();
 }

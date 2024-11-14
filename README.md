@@ -10,6 +10,7 @@ RabbitMQ: http://localhost:15672
 user: guest
 pass: guest
 
+API Gateway: http://localhost:5001/
 ProductAPI - Quản lý sản phẩm: http://localhost:5002/
 CustomerAPI - Quản lý khách hàng: http://localhost:5003/
 BasketAPI - Quản lý giỏ hàng: http://localhost:5004/
