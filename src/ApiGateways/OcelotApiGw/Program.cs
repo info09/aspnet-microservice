@@ -14,6 +14,7 @@ try
 
     // Add services to the container.
     builder.Host.AddAppConfigurations();
+    builder.Services.AddJwtAuthentication();
     builder.Services.AddControllers();
     builder.Services.AddConfigurationSettings(builder.Configuration);
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -21,6 +22,8 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.ConfigureOcelot(builder.Configuration);
     builder.Services.ConfigureCors(builder.Configuration);
+
+    
 
     var app = builder.Build();
 
@@ -35,9 +38,21 @@ try
 
     app.UseMiddleware<ErrorWrappingMiddleware>();
 
+    app.UseAuthentication();
+
+    app.UseRouting();
+
     //app.UseHttpsRedirection();
 
     app.UseAuthorization();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapGet("/", async context =>
+        {
+            await context.Response.WriteAsync("Hello world");
+        });
+    });
 
     app.MapControllers();
 

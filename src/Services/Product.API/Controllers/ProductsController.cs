@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Product.API.Entities;
@@ -40,6 +41,7 @@ namespace Product.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateProduct([FromBody]CreateProductDto productDto)
         {
             var productEntity = await _productRepository.GetProductByNo(productDto.No);
