@@ -14,7 +14,6 @@ try
 
     // Add services to the container.
     builder.Host.AddAppConfigurations();
-    builder.Services.AddJwtAuthentication();
     builder.Services.AddControllers();
     builder.Services.AddConfigurationSettings(builder.Configuration);
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -23,7 +22,7 @@ try
     builder.Services.ConfigureOcelot(builder.Configuration);
     builder.Services.ConfigureCors(builder.Configuration);
 
-    
+
 
     var app = builder.Build();
 
