@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Product.API.Entities;
 using Product.API.Repositories.Interfaces;
@@ -42,7 +41,7 @@ namespace Product.API.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateProduct([FromBody]CreateProductDto productDto)
+        public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto productDto)
         {
             var productEntity = await _productRepository.GetProductByNo(productDto.No);
             if (productEntity != null)
@@ -56,7 +55,7 @@ namespace Product.API.Controllers
         }
 
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> UpdateProduct(long id, [FromBody]UpdateProductDto productDto)
+        public async Task<IActionResult> UpdateProduct(long id, [FromBody] UpdateProductDto productDto)
         {
             var product = await _productRepository.GetProduct(id);
             if (product == null)
@@ -64,12 +63,13 @@ namespace Product.API.Controllers
 
             var updateProduct = _mapper.Map(productDto, product);
             await _productRepository.UpdateProduct(updateProduct);
-            await _productRepository.SaveChangesAsync();
+
             var result = _mapper.Map<ProductDto>(product);
             return Ok(result);
         }
 
         [HttpDelete("{id:long}")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct([Required] long id)
         {
             var product = await _productRepository.GetProduct(id);
@@ -98,4 +98,3 @@ namespace Product.API.Controllers
         #endregion
     }
 }
-    

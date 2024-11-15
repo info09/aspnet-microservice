@@ -27,7 +27,8 @@ namespace Product.API.Repositories
         public async Task DeleteProduct(long id)
         {
             var product = await GetProduct(id);
-            if (product != null) DeleteAsync(product);
+            if (product != null) Delete(product);
+            await SaveChangesAsync();
         }
     }
 }
