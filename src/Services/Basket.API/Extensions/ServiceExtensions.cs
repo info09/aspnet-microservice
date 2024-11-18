@@ -27,6 +27,10 @@ namespace Basket.API.Extensions
                 .Get<CacheSettings>();
             services.AddSingleton(cacheSettings);
 
+            var backgroundJobSettings = configuration.GetSection(nameof(BackgroundJobSettings))
+                .Get<BackgroundJobSettings>();
+            services.AddSingleton(backgroundJobSettings);
+
             return services;
         }
 

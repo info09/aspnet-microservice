@@ -10,7 +10,7 @@ try
 {
     builder.Host.AddApplicationConfiguration();
     // Add services to the container.
-    builder.Services.AddConfigurationServices();
+
     builder.Services.AddConfigurationSettings(builder.Configuration);
 
     builder.Services.AddControllers();
@@ -18,6 +18,7 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddTeduHangfireService();
+    builder.Services.AddConfigurationServices();
 
     var app = builder.Build();
 
