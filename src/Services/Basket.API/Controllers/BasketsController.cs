@@ -2,6 +2,7 @@
 using Basket.API.Entities;
 using Basket.API.GrpcService;
 using Basket.API.Repositories.Interfaces;
+using Basket.API.Services.Interfaces;
 using EventBus.Messages.IntegrationEvents.Events;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +21,16 @@ namespace Basket.API.Controllers
         private readonly IMapper _mapper;
         private readonly StockItemGrpcService _stockItemGrpcService;
         private readonly FullNameItemGrpcService _fullNameItemGrpcService;
+        private readonly IEmailTemplateService _emailTemplateService;
 
-        public BasketsController(IBasketRepository basketRepository, IPublishEndpoint publishEndpoint, IMapper mapper, StockItemGrpcService stockItemGrpcService = null, FullNameItemGrpcService fullNameItemGrpcService = null)
+        public BasketsController(IBasketRepository basketRepository, IPublishEndpoint publishEndpoint, IMapper mapper, StockItemGrpcService stockItemGrpcService = null, FullNameItemGrpcService fullNameItemGrpcService = null, IEmailTemplateService emailTemplateService = null)
         {
             _basketRepository = basketRepository;
             _publishEndpoint = publishEndpoint;
             _mapper = mapper;
             _stockItemGrpcService = stockItemGrpcService;
             _fullNameItemGrpcService = fullNameItemGrpcService;
+            _emailTemplateService = emailTemplateService;
         }
 
         [HttpGet("{username}", Name = "GetBasket")]
@@ -86,6 +89,20 @@ namespace Basket.API.Controllers
             await _basketRepository.DeleteBasketFromUserName(basketCheckout.UserName);
 
             return Accepted();
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        public ContentResult SendEmail()
+        {
+            var emailTemplate = _emailTemplateService.GenerateReminderCheckoutOrderEmail("huytq@ics-p.vn", "huytq");
+            var result = new ContentResult()
+            {
+                Content = emailTemplate,
+                ContentType = "text/html"
+            };
+            return result;
         }
     }
 }

@@ -37,4 +37,10 @@
 	  <Protobuf Include="Protos\stockItem.proto" GrpcServices="Client" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="EmailTemplate\reminder-checkout-order.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

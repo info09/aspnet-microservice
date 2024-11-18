@@ -1,4 +1,6 @@
-﻿using Infrastructure.Configurations;
+﻿using Contracts.ScheduledJobs;
+using Infrastructure.Configurations;
+using Infrastructure.ScheduleJob;
 using Shared.Configurations;
 
 namespace Hangfire.API.Extensions
@@ -14,6 +16,11 @@ namespace Hangfire.API.Extensions
             services.AddSingleton(emailSettings);
 
             return services;
+        }
+
+        public static IServiceCollection AddConfigurationServices(this IServiceCollection services)
+        {
+            return services.AddTransient<IScheduledJobService, ScheduledJobService>();
         }
     }
 }

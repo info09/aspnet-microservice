@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -14,10 +14,6 @@
     <ProjectReference Include="..\..\BuildingBlocks\Common.Logging\Common.Logging.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Shared\Shared.csproj" />
     <ProjectReference Include="..\Ordering\Ordering.Infrastructure\Ordering.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

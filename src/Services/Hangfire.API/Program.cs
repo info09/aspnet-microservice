@@ -10,6 +10,7 @@ try
 {
     builder.Host.AddApplicationConfiguration();
     // Add services to the container.
+    builder.Services.AddConfigurationServices();
     builder.Services.AddConfigurationSettings(builder.Configuration);
 
     builder.Services.AddControllers();
