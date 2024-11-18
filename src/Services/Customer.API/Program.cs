@@ -1,13 +1,11 @@
 using Common.Logging;
 using Customer.API;
-using Customer.API.Persistence;
-using Customer.API.Repositories;
-using Customer.API.Repositories.Interfaces;
-using Customer.API.Services.Interfaces;
-using Customer.API.Services;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
 using Customer.API.Controllers;
+using Customer.API.Extensions;
+using Customer.API.Persistence;
+using Infrastructure.Middlewares;
+using Infrastructure.ScheduleJob;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(Serilogger.Configure);
@@ -17,6 +15,8 @@ Log.Information($"Start {builder.Environment.ApplicationName} up");
 try
 {
     // Add services to the container.
+    builder.Host.AddApplicationConfiguration();
+    builder.Services.AddConfigurationSettings(builder.Configuration);
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -24,10 +24,9 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
 
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
-    builder.Services.AddDbContext<CustomerContext>(options => options.UseNpgsql(connectionString));
-    builder.Services.AddScoped<ICustomerRepository, CustomerRepository>()
-       .AddScoped<ICustomerService, CustomerService>();
+    builder.Services.ConfigureCustomerContext();
+    builder.Services.AddInfrastructureServices();
+    builder.Services.AddTeduHangfireService();
 
     var app = builder.Build();
 
@@ -42,9 +41,13 @@ try
         app.UseSwaggerUI();
     }
 
-    app.UseHttpsRedirection();
+    app.UseMiddleware<ErrorWrappingMiddleware>();
+
+    //app.UseHttpsRedirection();
 
     app.UseAuthorization();
+
+    app.UseHangfireDashboard(builder.Configuration);
 
     app.MapControllers();
 

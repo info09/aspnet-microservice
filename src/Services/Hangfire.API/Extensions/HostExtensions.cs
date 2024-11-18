@@ -1,0 +1,38 @@
+﻿using Common.Logging;
+using Serilog;
+using Shared.Configurations;
+
+namespace Hangfire.API.Extensions
+{
+    public static class HostExtensions
+    {
+        public static void AddApplicationConfiguration(this ConfigureHostBuilder host)
+        {
+            host.ConfigureAppConfiguration((context, config) =>
+            {
+                var env = context.HostingEnvironment;
+                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                    .AddEnvironmentVariables();
+            }).UseSerilog(Serilogger.Configure);
+        }
+
+        public static IApplicationBuilder UseHangfireDashboard(this IApplicationBuilder app, IConfiguration configuration)
+        {
+            var configureDashboard = configuration.GetSection("HangfireSettings:Dashboard").Get<DashboardOptions>();
+            var hangfireSettings = configuration.GetSection("HangfireSettings").Get<HangfireSettings>();
+            var hangfireRoute = hangfireSettings.Route;
+
+            app.UseHangfireDashboard(hangfireRoute, new DashboardOptions
+            {
+                Authorization = new[] { new AuthorizationFilter() },
+                DashboardTitle = configureDashboard.DashboardTitle,
+                StatsPollingInterval = configureDashboard.StatsPollingInterval,
+                AppPath = configureDashboard.AppPath,
+                IgnoreAntiforgeryToken = true
+            });
+
+            return app;
+        }
+    }
+}
