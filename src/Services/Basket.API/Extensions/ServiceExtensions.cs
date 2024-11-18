@@ -30,6 +30,12 @@ namespace Basket.API.Extensions
             return services;
         }
 
+        public static IServiceCollection ConfigureHttpClientService(this IServiceCollection services)
+        {
+            services.AddHttpClient<BackgroundJobHttpService>();
+            return services;
+        }
+
         public static IServiceCollection ConfigureServices(this IServiceCollection services) =>
             services.AddScoped<IBasketRepository, BasketRepository>()
                     .AddTransient<ISerializeService, SerializeService>()

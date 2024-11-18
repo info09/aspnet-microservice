@@ -1,6 +1,7 @@
 using Basket.API;
 using Basket.API.Extensions;
 using Common.Logging;
+using Infrastructure.Middlewares;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +14,10 @@ try
     builder.Host.AddApplicationConfigurations();
     builder.Services.AddConfigurationSettings(builder.Configuration);
     builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
+
     // Add services to the container.
     builder.Services.ConfigureServices();
+    builder.Services.ConfigureHttpClientService();
     builder.Services.ConfigureRedis(builder.Configuration);
     builder.Services.ConfigureGrpcService();
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
@@ -35,11 +38,13 @@ try
         app.UseSwaggerUI();
     }
 
+    app.UseMiddleware<ErrorWrappingMiddleware>();
+
     //app.UseHttpsRedirection();
 
     app.UseAuthorization();
 
-    app.MapControllers();
+    app.MapDefaultControllerRoute();
 
     app.Run();
 }

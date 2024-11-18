@@ -1,4 +1,6 @@
 ﻿using Contracts.ScheduledJobs;
+using Hangfire.API.Services;
+using Hangfire.API.Services.Interfaces;
 using Infrastructure.Configurations;
 using Infrastructure.ScheduleJob;
 using Shared.Configurations;
@@ -20,7 +22,9 @@ namespace Hangfire.API.Extensions
 
         public static IServiceCollection AddConfigurationServices(this IServiceCollection services)
         {
-            return services.AddTransient<IScheduledJobService, ScheduledJobService>();
+            return services.AddTransient<IScheduledJobService, ScheduledJobService>()
+                            .AddTransient<IBackgroundJobService, BackgroundJobService>()
+                ;
         }
     }
 }

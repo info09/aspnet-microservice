@@ -96,7 +96,7 @@ namespace Basket.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         public ContentResult SendEmail()
         {
-            var emailTemplate = _emailTemplateService.GenerateReminderCheckoutOrderEmail("huytq@ics-p.vn", "huytq");
+            var emailTemplate = _emailTemplateService.GenerateReminderCheckoutOrderEmail("huytq");
             var result = new ContentResult()
             {
                 Content = emailTemplate,

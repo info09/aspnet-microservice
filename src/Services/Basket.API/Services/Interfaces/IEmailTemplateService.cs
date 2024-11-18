@@ -2,6 +2,6 @@
 {
     public interface IEmailTemplateService
     {
-        string GenerateReminderCheckoutOrderEmail(string email, string userName);
+        string GenerateReminderCheckoutOrderEmail(string userName);
     }
 }
