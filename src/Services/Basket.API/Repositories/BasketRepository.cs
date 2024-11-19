@@ -53,7 +53,7 @@ namespace Basket.API.Repositories
 
         public async Task<Cart> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null)
         {
-            await DeleteReminderCheckoutOrder(cart.UserName);
+            DeleteReminderCheckoutOrder(cart.UserName);
             _logger.Information($"BEGIN: UpdateBasket for {cart.UserName}");
 
             if (options != null)
