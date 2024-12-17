@@ -2,9 +2,9 @@
 using Infrastructure.Extensions;
 using MediatR;
 using Ordering.Application.Common.Mappings;
-using Ordering.Application.Common.Models;
 using Ordering.Application.Features.Orders.Common;
 using Ordering.Domain.Entities;
+using Shared.Dtos.Order;
 using Shared.SeedWorks;
 
 namespace Ordering.Application.Features.Orders.Command.UpdateOrder

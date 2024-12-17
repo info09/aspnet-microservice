@@ -1,12 +1,13 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Ordering.Application.Common.Models;
 using Ordering.Application.Features.Orders.Command.CreateOrder;
 using Ordering.Application.Features.Orders.Command.DeleteOrder;
 using Ordering.Application.Features.Orders.Command.DeleteOrderByDocumentNo;
 using Ordering.Application.Features.Orders.Command.UpdateOrder;
 using Ordering.Application.Features.Orders.Queries.GetOrderById;
 using Ordering.Application.Features.Orders.Queries.GetOrders;
+using Shared.Dtos.Order;
 using Shared.SeedWorks;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
@@ -18,10 +19,12 @@ namespace Ordering.API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IMediator mediator)
+        public OrdersController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         private static class RouteNames
@@ -54,8 +57,9 @@ namespace Ordering.API.Controllers
 
         [HttpPost(Name = RouteNames.CreateOrder)]
         [ProducesResponseType(typeof(ApiResult<long>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<OrderDto>> CreateOrder([FromBody] CreateOrderCommand command)
+        public async Task<ActionResult<OrderDto>> CreateOrder([FromBody] CreateOrderDto model)
         {
+            var command = _mapper.Map<CreateOrderCommand>(model);
             var orders = await _mediator.Send(command);
             return Ok(orders);
         }

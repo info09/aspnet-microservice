@@ -67,6 +67,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Grpc", "src\Servic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScheduleJob", "ScheduleJob", "{330C13E2-2D3F-4796-ACE5-280B71DDF51B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Saga.Orchestrator", "Saga.Orchestrator", "{701C8C34-FCB3-4B98-A2D7-28FED39E387E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saga.Orchestrator", "src\Saga.Orchestrator\Saga.Orchestrator\Saga.Orchestrator.csproj", "{96168513-C1F8-4AF8-ADBA-5812EDC6F5A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +149,10 @@ Global
 		{B72D1A47-2F0C-43C9-8F50-2BAD83DF1F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B72D1A47-2F0C-43C9-8F50-2BAD83DF1F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B72D1A47-2F0C-43C9-8F50-2BAD83DF1F76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96168513-C1F8-4AF8-ADBA-5812EDC6F5A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96168513-C1F8-4AF8-ADBA-5812EDC6F5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96168513-C1F8-4AF8-ADBA-5812EDC6F5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96168513-C1F8-4AF8-ADBA-5812EDC6F5A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,6 +185,8 @@ Global
 		{3C1344DB-5D0E-44AF-B03E-E775A54BE613} = {F7E1A87E-63B4-40D8-9F33-41FDD16F4C85}
 		{B72D1A47-2F0C-43C9-8F50-2BAD83DF1F76} = {3C1344DB-5D0E-44AF-B03E-E775A54BE613}
 		{330C13E2-2D3F-4796-ACE5-280B71DDF51B} = {F7E1A87E-63B4-40D8-9F33-41FDD16F4C85}
+		{701C8C34-FCB3-4B98-A2D7-28FED39E387E} = {9E91C6C1-F1A1-4DE2-8230-A8C12D0C18E0}
+		{96168513-C1F8-4AF8-ADBA-5812EDC6F5A5} = {701C8C34-FCB3-4B98-A2D7-28FED39E387E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15FE0E56-A855-4ED8-8C22-DF622C79C61D}

@@ -7,6 +7,7 @@ using EventBus.Messages.IntegrationEvents.Events;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Shared.Dtos.Basket;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
@@ -37,9 +38,10 @@ namespace Basket.API.Controllers
         [ProducesResponseType(typeof(Cart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Cart>> GetBasket([Required] string username)
         {
-            var result = await _basketRepository.GetBasketByUserName(username);
+            var cart = await _basketRepository.GetBasketByUserName(username);
+            var result = _mapper.Map<CartDto>(cart);
 
-            return Ok(result ?? new Cart(username));
+            return Ok(result);
         }
 
         [HttpPost(Name = "UpdateBasket")]
@@ -60,7 +62,8 @@ namespace Basket.API.Controllers
                 .SetAbsoluteExpiration(DateTime.UtcNow.AddHours(10))
                 .SetSlidingExpiration(TimeSpan.FromMinutes(10));
 
-            var result = await _basketRepository.UpdateBasket(cart, options);
+            var updatedCart = await _basketRepository.UpdateBasket(cart, options);
+            var result = _mapper.Map<CartDto>(updatedCart);
             return Ok(result);
         }
 

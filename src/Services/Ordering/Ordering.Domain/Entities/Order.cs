@@ -1,7 +1,7 @@
 ﻿using Contracts.Common.Events;
 using Contracts.Common.Interfaces;
-using Ordering.Domain.Enums;
 using Ordering.Domain.OrderAggregate.Events;
+using Shared.Enums.Order;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

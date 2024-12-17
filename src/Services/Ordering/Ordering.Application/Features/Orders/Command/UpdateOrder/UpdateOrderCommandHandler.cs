@@ -2,9 +2,9 @@
 using MediatR;
 using Ordering.Application.Common.Exceptions;
 using Ordering.Application.Common.Interfaces;
-using Ordering.Application.Common.Models;
 using Ordering.Domain.Entities;
 using Serilog;
+using Shared.Dtos.Order;
 using Shared.SeedWorks;
 
 namespace Ordering.Application.Features.Orders.Command.UpdateOrder

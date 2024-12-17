@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Ordering.Application.Common.Interfaces;
-using Ordering.Application.Common.Models;
+using Shared.Dtos.Order;
 using Shared.SeedWorks;
 
 namespace Ordering.Application.Features.Orders.Queries.GetOrderById
