@@ -8,7 +8,7 @@ namespace Inventory.Grpc.Entities
     public class InventoryEntry : MongoEntity
     {
         [BsonElement("itemNo")]
-        public string ItemNo { get; set; }
+        public string ItemNo { get; set; } = string.Empty;
 
         [BsonElement("quantity")]
         public int Quantity { get; set; }

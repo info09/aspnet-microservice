@@ -2,6 +2,6 @@
 {
     public class CreateProductDto : CreateOrUpdateProductDto
     {
-        public string No { get; set; }
+        public string No { get; set; } = string.Empty;
     }
 }

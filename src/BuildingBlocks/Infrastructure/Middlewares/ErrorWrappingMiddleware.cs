@@ -1,7 +1,7 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Serilog;
 using Shared.SeedWorks;
+using System.Text.Json;
 using ValidationException = Infrastructure.Exceptions.ValidationException;
 
 namespace Infrastructure.Middlewares
@@ -54,7 +54,7 @@ namespace Infrastructure.Middlewares
             {
                 context.Response.ContentType = "application/json";
 
-                var response = new ApiErrorResult<bool>(errorMsg);
+                var response = new ApiErrorResult<bool>(errorMsg!);
 
                 var json = JsonSerializer.Serialize(response);
 

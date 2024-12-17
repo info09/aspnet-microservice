@@ -13,9 +13,9 @@ namespace Basket.API.Entities
         public decimal ItemPrice { get; set; }
 
         [Required]
-        public string ItemNo { get; set; }
+        public string ItemNo { get; set; } = string.Empty;
         [Required]
-        public string ItemName { get; set; }
+        public string ItemName { get; set; } = string.Empty;
 
         public int AvailableQuantity { get; set; }
 

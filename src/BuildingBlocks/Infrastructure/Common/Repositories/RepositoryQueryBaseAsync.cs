@@ -1,7 +1,7 @@
-﻿using System.Linq.Expressions;
-using Contracts.Domains;
+﻿using Contracts.Domains;
 using Contracts.Domains.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Common.Repositories;
 
@@ -45,10 +45,10 @@ public class RepositoryQueryBaseAsync<T, K, TContext> : RepositoryQueryBaseAsync
     }
 
     public async Task<T?> GetByIdAsync(K id) =>
-        await FindByCondition(x => x.Id.Equals(id))
+        await FindByCondition(x => x.Id!.Equals(id))
             .FirstOrDefaultAsync();
 
     public async Task<T?> GetByIdAsync(K id, params Expression<Func<T, object>>[] includeProperties) =>
-        await FindByCondition(x => x.Id.Equals(id), trackChanges: false, includeProperties)
+        await FindByCondition(x => x.Id!.Equals(id), trackChanges: false, includeProperties)
             .FirstOrDefaultAsync();
 }

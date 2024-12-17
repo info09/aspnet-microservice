@@ -23,7 +23,7 @@ namespace Basket.API.Controllers
         private readonly FullNameItemGrpcService _fullNameItemGrpcService;
         private readonly IEmailTemplateService _emailTemplateService;
 
-        public BasketsController(IBasketRepository basketRepository, IPublishEndpoint publishEndpoint, IMapper mapper, StockItemGrpcService stockItemGrpcService = null, FullNameItemGrpcService fullNameItemGrpcService = null, IEmailTemplateService emailTemplateService = null)
+        public BasketsController(IBasketRepository basketRepository, IPublishEndpoint publishEndpoint, IMapper mapper, StockItemGrpcService stockItemGrpcService, FullNameItemGrpcService fullNameItemGrpcService, IEmailTemplateService emailTemplateService)
         {
             _basketRepository = basketRepository;
             _publishEndpoint = publishEndpoint;

@@ -11,7 +11,7 @@ namespace Customer.Grpc.Repositories
         {
         }
 
-        public async Task<string> GetFullNameCustomer(string userName)
+        public async Task<string?> GetFullNameCustomer(string userName)
         {
             var customer = await FindByCondition(i => i.UserName.Equals(userName)).SingleOrDefaultAsync();
             if (customer != null)

@@ -5,6 +5,6 @@ namespace Customer.Grpc.Repositories.Interfaces
 {
     public interface ICustomerRepository : IRepositoryQueryBase<Entities.Customer, int, CustomerContext>
     {
-        Task<string> GetFullNameCustomer(string userName);
+        Task<string?> GetFullNameCustomer(string userName);
     }
 }

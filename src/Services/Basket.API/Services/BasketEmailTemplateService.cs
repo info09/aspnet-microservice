@@ -8,11 +8,11 @@ namespace Basket.API.Services
         {
         }
 
-        public string GenerateReminderCheckoutOrderEmail(string userName)
+        public string GenerateReminderCheckoutOrderEmail(string userName, string checkoutUrl = "baskets")
         {
-            var checkoutUrl = "http://localhost:5001/baskets/checkout";
+            var _checkoutUrl = $"http://localhost:5001/{checkoutUrl}/checkout";
             var emailText = ReadTemplate("reminder-checkout-order");
-            var emailReplacedText = emailText.Replace("[userName]", userName).Replace("[checkoutUrl]", checkoutUrl);
+            var emailReplacedText = emailText.Replace("[userName]", userName).Replace("[checkoutUrl]", _checkoutUrl);
 
             return emailReplacedText;
         }

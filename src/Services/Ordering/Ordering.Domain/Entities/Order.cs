@@ -11,7 +11,7 @@ namespace Ordering.Domain.Entities
     {
         [Required]
         [Column(TypeName = "nvarchar(150)")]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = string.Empty;
 
         public Guid DocumentNo { get; set; } = Guid.NewGuid();
 
@@ -20,22 +20,22 @@ namespace Ordering.Domain.Entities
 
         [Required]
         [Column(TypeName = "nvarchar(50)")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
 
         [Required]
         [Column(TypeName = "nvarchar(250)")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
         [Required]
         [EmailAddress]
         [Column(TypeName = "nvarchar(250)")]
-        public string EmailAddress { get; set; }
+        public string EmailAddress { get; set; } = string.Empty;
 
         [Column(TypeName = "nvarchar(max)")]
-        public string ShippingAddress { get; set; }
+        public string ShippingAddress { get; set; } = string.Empty;
 
         [Column(TypeName = "nvarchar(max)")]
-        public string InvoiceAddress { get; set; }
+        public string InvoiceAddress { get; set; } = string.Empty;
 
         public EOrderStatus Status { get; set; }
 

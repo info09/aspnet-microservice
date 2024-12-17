@@ -6,7 +6,7 @@ namespace Shared.Dtos.Inventory
     {
         public string ItemNo() => _itemNo;
 
-        private string _itemNo;
+        private string _itemNo = string.Empty;
 
         public void SetItemNo(string itemNo) => _itemNo = itemNo;
 

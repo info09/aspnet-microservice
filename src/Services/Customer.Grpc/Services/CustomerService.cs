@@ -10,7 +10,7 @@ namespace Customer.Grpc.Services
         private readonly ICustomerRepository _customerRepository;
         private readonly ILogger _logger;
 
-        public CustomerService(ICustomerRepository customerRepository, ILogger logger = null)
+        public CustomerService(ICustomerRepository customerRepository, ILogger logger)
         {
             _customerRepository = customerRepository;
             _logger = logger;

@@ -55,7 +55,7 @@ public class RepositoryBaseAsync<T, K, TContext> : RepositoryQueryBaseAsync<T, K
     {
         if (_dbContext.Entry(entity).State == EntityState.Unchanged) return;
 
-        T exist = _dbContext.Set<T>().Find(entity.Id);
+        T exist = _dbContext.Set<T>().Find(entity.Id)!;
         _dbContext.Entry(exist).CurrentValues.SetValues(entity);
     }
 
@@ -63,7 +63,7 @@ public class RepositoryBaseAsync<T, K, TContext> : RepositoryQueryBaseAsync<T, K
     {
         if (_dbContext.Entry(entity).State == EntityState.Unchanged) return;
 
-        T exist = _dbContext.Set<T>().Find(entity.Id);
+        T exist = _dbContext.Set<T>().Find(entity.Id)!;
         _dbContext.Entry(exist).CurrentValues.SetValues(entity);
 
         await SaveChangesAsync();

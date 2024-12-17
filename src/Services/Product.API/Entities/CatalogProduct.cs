@@ -8,17 +8,17 @@ namespace Product.API.Entities
     {
         [Required]
         [Column(TypeName = "varchar(150)")]
-        public string No { get; set; }
+        public string No { get; set; } = string.Empty;
 
         [Required]
         [Column(TypeName = "varchar(150)")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [Column(TypeName = "varchar(150)")]
-        public string Summary { get; set; }
+        public string Summary { get; set; } = string.Empty;
 
         [Column(TypeName = "text")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Column(TypeName = "decimal(12,2)")]
         public decimal Price { get; set; }

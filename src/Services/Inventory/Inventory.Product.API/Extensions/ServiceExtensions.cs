@@ -30,8 +30,7 @@ namespace Inventory.Product.API.Extensions
 
         public static void ConfigureMongoDbClient(this IServiceCollection services)
         {
-            services.AddSingleton<IMongoClient>(
-                new MongoClient(getMongoConnectionString(services)))
+            services.AddSingleton<IMongoClient>(new MongoClient(getMongoConnectionString(services)))
                 .AddScoped(x => x.GetService<IMongoClient>()?.StartSession());
         }
 

@@ -7,6 +7,6 @@ namespace Ordering.Application.Common.Interfaces
     {
         Task<IEnumerable<Order>> GetOrdersByUserName(string userName);
 
-        Task<Order> GetOrderByDocumentNoAsync(string documentNo);
+        Task<Order?> GetOrderByDocumentNoAsync(string documentNo);
     }
 }

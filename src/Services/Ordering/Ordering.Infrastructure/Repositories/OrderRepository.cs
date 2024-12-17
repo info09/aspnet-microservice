@@ -13,7 +13,7 @@ namespace Ordering.Infrastructure.Repositories
         {
         }
 
-        public Task<Order> GetOrderByDocumentNoAsync(string documentNo)
+        public Task<Order?> GetOrderByDocumentNoAsync(string documentNo)
         {
             return FindByCondition(i => i.DocumentNo.ToString().Equals(documentNo)).FirstOrDefaultAsync();
         }

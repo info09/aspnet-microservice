@@ -12,7 +12,7 @@ namespace Inventory.Grpc.Repositories
         {
         }
 
-        public async Task<int> GetStockQuantity(string itemNo)
+        public int GetStockQuantity(string itemNo)
         {
             return Collection.AsQueryable().Where(i => i.ItemNo.Equals(itemNo)).Sum(i => i.Quantity);
         }

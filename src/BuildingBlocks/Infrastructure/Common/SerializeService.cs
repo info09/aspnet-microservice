@@ -9,7 +9,7 @@ namespace Infrastructure.Common
     {
         public T Deserialize<T>(string text)
         {
-            return JsonConvert.DeserializeObject<T>(text);
+            return JsonConvert.DeserializeObject<T>(text)!;
         }
 
         public string Serialize<T>(T obj)

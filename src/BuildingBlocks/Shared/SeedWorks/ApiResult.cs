@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shared.SeedWorks
+﻿namespace Shared.SeedWorks
 {
     public class ApiResult<T>
     {
@@ -12,13 +6,13 @@ namespace Shared.SeedWorks
         {
         }
 
-        public ApiResult(bool isSucceeded, string message = null)
+        public ApiResult(bool isSucceeded, string message = "")
         {
             Message = message;
             IsSucceeded = isSucceeded;
         }
 
-        public ApiResult(bool isSucceeded, T data, string message = null)
+        public ApiResult(bool isSucceeded, T data, string message = "")
         {
             Data = data;
             Message = message;

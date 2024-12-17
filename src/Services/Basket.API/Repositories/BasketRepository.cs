@@ -51,9 +51,9 @@ namespace Basket.API.Repositories
             return string.IsNullOrEmpty(basket) ? null : _serializeService.Deserialize<Cart>(basket);
         }
 
-        public async Task<Cart> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null)
+        public async Task<Cart?> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null)
         {
-            DeleteReminderCheckoutOrder(cart.UserName);
+            await DeleteReminderCheckoutOrder(cart.UserName);
             _logger.Information($"BEGIN: UpdateBasket for {cart.UserName}");
 
             if (options != null)
@@ -80,7 +80,7 @@ namespace Basket.API.Repositories
         private async Task TriggerSendEmailReminderCheckout(Cart cart)
         {
             var emailTemplate = _emailTemplateService.GenerateReminderCheckoutOrderEmail(cart.UserName);
-            var model = new ReminderCheckoutOrderDto(cart.EmailAddress, "Reminder checkout", emailTemplate, DateTimeOffset.UtcNow.AddSeconds(30));
+            var model = new ReminderCheckoutOrderDto(cart.EmailAddress!, "Reminder checkout", emailTemplate, DateTimeOffset.UtcNow.AddSeconds(30));
 
             var uri = $"{_backgroundJobHttpService.ScheduledJobUrl}/send-email-reminder-checkout-order";
             var response = await _backgroundJobHttpService.Client.PostAsJson(uri, model);

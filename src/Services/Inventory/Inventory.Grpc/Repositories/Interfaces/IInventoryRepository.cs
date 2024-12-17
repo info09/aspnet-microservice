@@ -5,6 +5,6 @@ namespace Inventory.Grpc.Repositories.Interfaces
 {
     public interface IInventoryRepository : IMongoDbRepositoryBase<InventoryEntry>
     {
-        Task<int> GetStockQuantity(string itemNo);
+        int GetStockQuantity(string itemNo);
     }
 }

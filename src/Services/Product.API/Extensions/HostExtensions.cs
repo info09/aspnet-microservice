@@ -26,9 +26,9 @@ namespace Product.API.Extensions
                 try
                 {
                     logger.LogInformation("Migrating mysql database.");
-                    ExecuteMigrations(context);
+                    ExecuteMigrations(context!);
                     logger.LogInformation("Migrated mysql database.");
-                    InvokeSeeder(seeder, context, services);
+                    InvokeSeeder(seeder!, context!, services);
                 }
                 catch (Exception ex)
                 {

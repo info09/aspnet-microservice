@@ -14,7 +14,7 @@ namespace Inventory.Product.API.Services
     public class InventoryService : MongoDbRepository<InventoryEntry>, IInventoryService
     {
         private readonly IMapper _mapper;
-        public InventoryService(IMongoClient client, MongoDbSettings settings, IMapper mapper = null) : base(client, settings)
+        public InventoryService(IMongoClient client, MongoDbSettings settings, IMapper mapper) : base(client, settings)
         {
             _mapper = mapper;
         }
@@ -29,7 +29,7 @@ namespace Inventory.Product.API.Services
         public async Task<PagedList<InventoryEntryDto>> GetAllByItemNoPagingAsync(GetInventoryPagingQuery query)
         {
             var filterSearchTerm = Builders<InventoryEntry>.Filter.Empty;
-            var filterItemNo = Builders<InventoryEntry>.Filter.Regex(s => s.ItemNo,new BsonRegularExpression(query.ItemNo(), "i"));
+            var filterItemNo = Builders<InventoryEntry>.Filter.Regex(s => s.ItemNo, new BsonRegularExpression(query.ItemNo(), "i"));
             //var filterItemNo = Builders<InventoryEntry>.Filter.Eq(s => s.ItemNo, query.ItemNo());
             if (!string.IsNullOrEmpty(query.SearchTerm))
                 filterSearchTerm = Builders<InventoryEntry>.Filter.Eq(s => s.DocumentNo, query.SearchTerm);

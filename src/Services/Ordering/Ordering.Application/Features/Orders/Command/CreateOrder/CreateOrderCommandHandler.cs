@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using Contracts.Services;
 using MediatR;
 using Ordering.Application.Common.Interfaces;
 using Ordering.Domain.Entities;
 using Serilog;
 using Shared.SeedWorks;
-using Shared.Services.Email;
 
 namespace Ordering.Application.Features.Orders.Command.CreateOrder
 {
@@ -14,7 +12,7 @@ namespace Ordering.Application.Features.Orders.Command.CreateOrder
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
-        public CreateOrderCommandHandler(IOrderRepository orderRepository = null, IMapper mapper = null, ILogger logger = null)
+        public CreateOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, ILogger logger)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;

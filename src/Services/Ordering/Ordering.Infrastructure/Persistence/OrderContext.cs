@@ -14,7 +14,7 @@ namespace Ordering.Infrastructure.Persistence
     {
         private readonly IMediator _mediator;
         private readonly ILogger _logger;
-        public OrderContext(DbContextOptions<OrderContext> options, IMediator mediator = null, ILogger logger = null) : base(options)
+        public OrderContext(DbContextOptions<OrderContext> options, IMediator mediator, ILogger logger) : base(options)
         {
             _mediator = mediator;
             _logger = logger;

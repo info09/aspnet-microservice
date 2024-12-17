@@ -2,6 +2,6 @@
 {
     public class MongoDbSettings : DatabaseSettings
     {
-        public string DatabaseName { get; set; }
+        public string DatabaseName { get; set; } = string.Empty;
     }
 }

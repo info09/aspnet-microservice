@@ -6,7 +6,7 @@ namespace Shared.Dtos.Inventory
     {
         public EDocumentType DocumentType => EDocumentType.Purchase;
 
-        private string _itemNo { get; set; }
+        private string _itemNo { get; set; } = string.Empty;
 
         public string GetItemNo() => _itemNo;
 

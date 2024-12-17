@@ -10,7 +10,7 @@ namespace Ordering.Application.Features.Orders.Command.CreateOrder
 {
     public class CreateOrderCommand : CreateOrUpdateCommand, IRequest<ApiResult<long>>, IMapFrom<Order>, IMapFrom<BasketCheckoutEvent>
     {
-        public string UserName { get; set; }
+        public string UserName { get; set; } = string.Empty;
 
         public void Mapping(Profile profile)
         {
