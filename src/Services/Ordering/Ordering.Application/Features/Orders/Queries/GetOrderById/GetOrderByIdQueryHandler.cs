@@ -20,7 +20,19 @@ namespace Ordering.Application.Features.Orders.Queries.GetOrderById
         public async Task<ApiResult<OrderDto>> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
         {
             var order = await _repository.GetByIdAsync(request.Id);
-            var orderDto = _mapper.Map<OrderDto>(order);
+            var orderDto = new OrderDto()
+            {
+                Id = order!.Id,
+                DocumentNo = order.DocumentNo.ToString(),
+                EmailAddress = order.EmailAddress,
+                FirstName = order.FirstName,
+                InvoiceAddress = order.InvoiceAddress,
+                LastName = order.LastName,
+                ShippingAddress = order.ShippingAddress,
+                Status = order.Status,
+                TotalPrice = order.TotalPrice,
+                UserName = order.UserName,
+            };
 
             return new ApiSuccessResult<OrderDto>(orderDto);
         }

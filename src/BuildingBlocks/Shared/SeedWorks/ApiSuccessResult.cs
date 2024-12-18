@@ -1,7 +1,10 @@
-﻿namespace Shared.SeedWorks
+﻿using System.Text.Json.Serialization;
+
+namespace Shared.SeedWorks
 {
     public class ApiSuccessResult<T> : ApiResult<T>
     {
+        [JsonConstructor]
         public ApiSuccessResult(T data) : base(true, data, "Success")
         {
         }

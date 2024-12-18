@@ -39,7 +39,7 @@ namespace Basket.API.Controllers
         public async Task<ActionResult<Cart>> GetBasket([Required] string username)
         {
             var cart = await _basketRepository.GetBasketByUserName(username);
-            var result = _mapper.Map<CartDto>(cart);
+            var result = _mapper.Map<CartDto>(cart) ?? new CartDto(username);
 
             return Ok(result);
         }

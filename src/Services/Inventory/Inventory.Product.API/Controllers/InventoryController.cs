@@ -1,6 +1,5 @@
 ﻿using Inventory.Product.API.Extensions;
 using Inventory.Product.API.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Dtos.Inventory;
 using System.ComponentModel.DataAnnotations;
@@ -68,6 +67,24 @@ namespace Inventory.Product.API.Controllers
             var entity = await _inventoryService.GetByIdAsync(id);
             if (entity == null) return NotFound();
             await _inventoryService.DeleteAsync(id);
+            return NoContent();
+        }
+
+        [HttpPost("sales/{itemNo}", Name = "SalesItem")]
+        public async Task<ActionResult<InventoryEntryDto>> SalesItem([Required] string itemNo, [FromBody] SalesProductDto model)
+        {
+            model.SetItemNo(itemNo);
+            var result = await _inventoryService.SalesItemAsync(itemNo, model);
+            return Ok(result);
+        }
+
+        [Route("document-no/{documentNo}", Name = "DeleteByDocumentNo")]
+        [HttpDelete]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> DeleteByDocumentNo([Required] string documentNo)
+        {
+            await _inventoryService.DeleteByDocumentNoAsync(documentNo);
             return NoContent();
         }
     }

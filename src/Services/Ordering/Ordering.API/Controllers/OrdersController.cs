@@ -47,8 +47,8 @@ namespace Ordering.API.Controllers
         }
 
         [HttpGet("{id}", Name = RouteNames.GetOrderById)]
-        [ProducesResponseType(typeof(OrderDto), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<OrderDto>> GetOrdersById(long id)
+        [ProducesResponseType(typeof(ApiResult<OrderDto>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ApiResult<OrderDto>>> GetOrdersById(long id)
         {
             var query = new GetOrderByIdQuery(id);
             var orders = await _mediator.Send(query);
@@ -57,7 +57,7 @@ namespace Ordering.API.Controllers
 
         [HttpPost(Name = RouteNames.CreateOrder)]
         [ProducesResponseType(typeof(ApiResult<long>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<OrderDto>> CreateOrder([FromBody] CreateOrderDto model)
+        public async Task<ActionResult<ApiResult<long>>> CreateOrder([FromBody] CreateOrderDto model)
         {
             var command = _mapper.Map<CreateOrderCommand>(model);
             var orders = await _mediator.Send(command);
@@ -66,7 +66,7 @@ namespace Ordering.API.Controllers
 
         [HttpPut("{id}", Name = RouteNames.UpdateOrder)]
         [ProducesResponseType(typeof(ApiResult<OrderDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<OrderDto>> UpdateOrder([Required] long id, [FromBody] UpdateOrderCommand command)
+        public async Task<ActionResult<ApiResult<OrderDto>>> UpdateOrder([Required] long id, [FromBody] UpdateOrderCommand command)
         {
             var orders = await _mediator.Send(command);
             return Ok(orders);
@@ -74,7 +74,7 @@ namespace Ordering.API.Controllers
 
         [HttpDelete("{id}", Name = RouteNames.DeleteOrder)]
         [ProducesResponseType(typeof(ApiResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<OrderDto>> DeleteOrder([Required] long id)
+        public async Task<ActionResult<ApiResult<bool>>> DeleteOrder([Required] long id)
         {
             var command = new DeleteOrderCommand(id);
             var orders = await _mediator.Send(command);
@@ -83,7 +83,7 @@ namespace Ordering.API.Controllers
 
         [HttpDelete("document-no/{documentNo}", Name = RouteNames.DeleteOrderByDocumentNo)]
         [ProducesResponseType(typeof(ApiResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<OrderDto>> DeleteOrderByDocumentNo([Required] string documentNo)
+        public async Task<ActionResult<ApiResult<bool>>> DeleteOrderByDocumentNo([Required] string documentNo)
         {
             var command = new DeleteOrderByDocumentNoCommand(documentNo);
             var orders = await _mediator.Send(command);

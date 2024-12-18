@@ -1,6 +1,10 @@
-﻿namespace Saga.Orchestrator.HttpRepository.Interfaces
+﻿using Shared.Dtos.Inventory;
+
+namespace Saga.Orchestrator.HttpRepository.Interfaces
 {
-    public class IInventoryHttpRepository
+    public interface IInventoryHttpRepository
     {
+        Task<string> CreateSalesOrder(SalesProductDto model);
+        Task<bool> DeleteOrderByDocumentNo(string documentNo);
     }
 }
