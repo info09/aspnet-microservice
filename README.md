@@ -20,3 +20,9 @@ Inventory.Grpc: http://localhost:5007/
 Hangfire API: http://localhost:5008/
 Customer.Grpc: http://localhost:5009/
 Saga.Orchestrator: http://localhost:5010/
+
+Quy trình nghiệp vụ Checkout:
+1. Lấy về giỏ hàng (GetBasket)
+2. Tạo đơn hàng (CreateOrder)
+3. Lấy đơn hàng (GetOrder)
+4. Cập nhật Inventory (UpdateInventory)

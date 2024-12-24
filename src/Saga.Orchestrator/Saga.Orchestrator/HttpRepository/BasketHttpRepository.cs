@@ -14,7 +14,6 @@ namespace Saga.Orchestrator.HttpRepository
 
         public async Task<bool> DeleteBasket(string userName)
         {
-            throw new NotImplementedException();
             var response = await _httpClient.DeleteAsync($"baskets/{userName}");
             if (!response.EnsureSuccessStatusCode().IsSuccessStatusCode)
                 throw new Exception($"Delete basket for userName: {userName} not success");

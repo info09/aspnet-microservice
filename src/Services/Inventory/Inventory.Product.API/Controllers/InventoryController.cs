@@ -78,6 +78,15 @@ namespace Inventory.Product.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost("sales/order-no/{orderNo}", Name = "SalesOrder")]
+        public async Task<ActionResult<CreatedSalesOrderSuccecssDto>> SalesOrder([Required] string orderNo, [FromBody] SalesOrderDto model)
+        {
+            model.OrderNo = orderNo;
+            var documentNo = await _inventoryService.SaleOrderAsync(model);
+            var result = new CreatedSalesOrderSuccecssDto(documentNo);
+            return Ok(result);
+        }
+
         [Route("document-no/{documentNo}", Name = "DeleteByDocumentNo")]
         [HttpDelete]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]

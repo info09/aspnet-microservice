@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Shared.Dtos.Basket;
+using Shared.Dtos.Inventory;
 using Shared.Dtos.Order;
 
 namespace Saga.Orchestrator
@@ -9,7 +10,7 @@ namespace Saga.Orchestrator
         public MappingProfile()
         {
             CreateMap<BasketCheckoutDto, CreateOrderDto>();
-            //CreateMap<CartItemDto, SaleItemDto>();
+            CreateMap<CartItemDto, SaleItemDto>();
         }
     }
 }

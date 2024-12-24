@@ -74,6 +74,24 @@ namespace Inventory.Product.API.Services
             return result;
         }
 
+        public async Task<string> SaleOrderAsync(SalesOrderDto model)
+        {
+            var documentNo = Guid.NewGuid().ToString();
+            foreach (var item in model.SaleItem)
+            {
+                var itemToAdd = new InventoryEntry(ObjectId.GenerateNewId().ToString())
+                {
+                    ItemNo = item.ItemNo,
+                    Quantity = item.Quantity * -1,
+                    DocumentType = item.DocumentType,
+                    DocumentNo = documentNo,
+                    ExternalDocumentNo = model.OrderNo
+                };
+                await CreateAsync(itemToAdd);
+            }
+            return documentNo;
+        }
+
         public async Task<InventoryEntryDto> SalesItemAsync(string itemNo, SalesProductDto model)
         {
             var itemToAdd = new InventoryEntry(ObjectId.GenerateNewId().ToString())

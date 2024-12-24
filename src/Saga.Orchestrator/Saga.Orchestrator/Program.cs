@@ -10,17 +10,17 @@ Log.Information($"Start {builder.Environment.ApplicationName} up");
 
 try
 {
-    builder.Host.AddApplicationConfiguration();
+
     // Add services to the container.
-    builder.Services.AddConfigurationSettings(builder.Configuration);
+    builder.Services.ConfigureServices();
     builder.Services.ConfigureHttpRepository();
     builder.Services.ConfigureHttpClients();
-
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+    builder.Services.Configure<RouteOptions>(options
+        => options.LowercaseUrls = true);
     builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
 
     var app = builder.Build();

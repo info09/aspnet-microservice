@@ -1,0 +1,11 @@
+﻿using Shared.Enums.Inventory;
+
+namespace Shared.Dtos.Inventory
+{
+    public class SaleItemDto
+    {
+        public string ItemNo { get; set; }
+        public int Quantity { get; set; }
+        public EDocumentType DocumentType => EDocumentType.Sale;
+    }
+}
