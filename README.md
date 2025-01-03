@@ -3,7 +3,7 @@ user: admin
 pass: Admin12345678
 
 Kibana: http://localhost:5601
-user: kibana
+user: elastic
 pass: admin
 
 RabbitMQ: http://localhost:15672

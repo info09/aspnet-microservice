@@ -87,7 +87,7 @@ namespace Basket.API.Controllers
             var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
             eventMessage.TotalPrice = basket.TotalPrice;
 
-            _publishEndpoint.Publish(eventMessage);
+            await _publishEndpoint.Publish(eventMessage);
 
             await _basketRepository.DeleteBasketFromUserName(basketCheckout.UserName);
 
