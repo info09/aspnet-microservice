@@ -1,7 +1,9 @@
 using Basket.API;
 using Basket.API.Extensions;
 using Common.Logging;
+using HealthChecks.UI.Client;
 using Infrastructure.Middlewares;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,7 @@ try
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
     builder.Services.ConfigureMassTransit();
+    builder.Services.ConfigureHealthChecks();
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -41,10 +44,19 @@ try
     app.UseMiddleware<ErrorWrappingMiddleware>();
 
     //app.UseHttpsRedirection();
+    app.UseRouting();
 
     app.UseAuthorization();
 
-    app.MapDefaultControllerRoute();
+    app.UseEndpoints(endpoints =>
+    {
+        app.MapHealthChecks("/hc", new HealthCheckOptions
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+        app.MapDefaultControllerRoute();
+    });
 
     app.Run();
 }
