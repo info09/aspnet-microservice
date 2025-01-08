@@ -4,6 +4,8 @@ using Serilog;
 using Ordering.Application;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -22,6 +24,7 @@ try
     builder.Services.AddInfrastructureServices(builder.Configuration);
 
     builder.Services.ConfigureMassTransit();
+    builder.Services.ConfigureHealthCheck();
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -52,7 +55,15 @@ try
 
     app.MapControllers();
 
-    app.MapDefaultControllerRoute();
+    app.UseEndpoints(endpoints =>
+    {
+        app.MapHealthChecks("/hc", new HealthCheckOptions()
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+        app.MapDefaultControllerRoute();
+    });
 
     app.Run();
 }
