@@ -1,4 +1,5 @@
 using Common.Logging;
+using HealthChecks.UI.Client;
 using Inventory.Product.API.Extensions;
 using Serilog;
 
@@ -18,6 +19,7 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.ConfigureMongoDbClient();
     builder.Services.AddInfrastructureServices();
+    builder.Services.ConfigureHealthChecks();
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
     var app = builder.Build();
 
@@ -31,6 +33,14 @@ try
     app.UseHttpsRedirection();
 
     app.UseAuthorization();
+
+
+    app.MapHealthChecks("/hc", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions()
+    {
+        Predicate = _ => true,
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
+
 
     app.MapControllers();
 

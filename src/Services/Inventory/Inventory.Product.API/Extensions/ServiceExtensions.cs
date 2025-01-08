@@ -40,5 +40,11 @@ namespace Inventory.Product.API.Extensions
 
             services.AddScoped<IInventoryService, InventoryService>();
         }
+
+        public static void ConfigureHealthChecks(this IServiceCollection services)
+        {
+            services.AddHealthChecks()
+                .AddMongoDb(getMongoConnectionString(services), name: "MongoDb Health", failureStatus: Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Degraded);
+        }
     }
 }
