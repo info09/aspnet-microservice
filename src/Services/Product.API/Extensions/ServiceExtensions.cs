@@ -6,6 +6,7 @@ using Infrastructure.Extensions;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
@@ -23,6 +24,10 @@ namespace Product.API.Extensions
         {
             var jwtSettings = configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
             services.AddSingleton(jwtSettings);
+
+            var databaseSetting = configuration.GetSection(nameof(DatabaseSettings)).Get<DatabaseSettings>();
+            services.AddSingleton(databaseSetting);
+
             return services;
         }
 
@@ -36,7 +41,8 @@ namespace Product.API.Extensions
             services.ConfigureProductDbContext(configuration);
             services.AddInfrastructureServices();
             services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
-            services.AddJwtAuthentication();
+            //services.AddJwtAuthentication();
+            services.ConfigureHealthCheck();
 
             return services;
         }
@@ -74,8 +80,11 @@ namespace Product.API.Extensions
 
         private static IServiceCollection ConfigureProductDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnectionString");
-            var builder = new MySqlConnectionStringBuilder(connectionString);
+            var databaseSettings = configuration.GetSection(nameof(DatabaseSettings)).Get<DatabaseSettings>();
+            if (databaseSettings == null || string.IsNullOrEmpty(databaseSettings.ConnectionString))
+                throw new ArgumentNullException("Connection string is not configured.");
+
+            var builder = new MySqlConnectionStringBuilder(databaseSettings.ConnectionString);
 
             services.AddDbContext<ProductContext>(m => m.UseMySql(builder.ConnectionString,
                 ServerVersion.AutoDetect(builder.ConnectionString), e =>
@@ -93,6 +102,12 @@ namespace Product.API.Extensions
                     .AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>))
                     .AddScoped<IProductRepository, ProductRepository>()
                 ;
+        }
+
+        private static void ConfigureHealthCheck(this IServiceCollection services)
+        {
+            var databaseSettings = services.GetOptions<DatabaseSettings>(nameof(DatabaseSettings));
+            services.AddHealthChecks().AddMySql(databaseSettings.ConnectionString, "MySQL Health", HealthStatus.Degraded);
         }
     }
 }
