@@ -41,7 +41,8 @@ namespace Basket.API.Extensions
             services.AddHttpClient<BackgroundJobHttpService>()
                 .AddHttpMessageHandler<LoggingDelegatingHandler>()
                 .UseImmediateHttpRetryPolicy()
-                .UseCircuitBreakerPolicy();
+                .UseCircuitBreakerPolicy()
+                .ConfigureTimeoutPolicy();
             return services;
         }
 
