@@ -95,6 +95,7 @@ namespace TeduMicroservices.IDP.Extensions
                 opt.EnableTokenCleanup = true;
             })
             .AddAspNetIdentity<User>()
+            .AddProfileService<IdentityProfileService>();
             ;
         }
 

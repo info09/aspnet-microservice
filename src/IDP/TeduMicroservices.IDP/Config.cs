@@ -82,6 +82,7 @@ public static class Config
                     AllowedGrantTypes = new List<string>
                     {
                         GrantType.ClientCredentials,
+                        GrantType.ResourceOwnerPassword
                     },
                     RequireConsent = false,
                     AccessTokenLifetime = 60 * 60 * 2,

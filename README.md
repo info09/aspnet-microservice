@@ -33,3 +33,10 @@ http://localhost:5001
 Migration:
 - add-migration InitialPersistedGrantMigration -c PersistedGrantDbContext -o Migrations/IdentityServer/PersistedGrantDb
 - add-migration InitialConfigurationMigration -c ConfigurationDbContext -o Migrations/IdentityServer/ConfigurationDb
+
+Update Database:
+```
+update-database -Context PersistedGrantDbContext
+update-database -Context ConfigurationDbContext
+update-database -Context TeduIdentityContext
+```
