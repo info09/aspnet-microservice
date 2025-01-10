@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using TeduMicroservices.IDP.Extensions;
+using TeduMicroservices.IDP.Persistence;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -16,7 +17,7 @@ try
         .ConfigureServices()
         .ConfigurePipeline();
     
-    app.Run();
+    app.MigrateDatabase().Run();
 }
 catch (Exception ex)
 {

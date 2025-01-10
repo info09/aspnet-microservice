@@ -10,7 +10,7 @@ RabbitMQ: http://localhost:15672
 user: guest
 pass: guest
 
-API Gateway: http://localhost:5001/
+API Gateway: http://localhost:5000/
 ProductAPI - Quản lý sản phẩm: http://localhost:5002/
 CustomerAPI - Quản lý khách hàng: http://localhost:5003/
 BasketAPI - Quản lý giỏ hàng: http://localhost:5004/
@@ -26,3 +26,10 @@ Quy trình nghiệp vụ Checkout:
 2. Tạo đơn hàng (CreateOrder)
 3. Lấy đơn hàng (GetOrder)
 4. Cập nhật Inventory (UpdateInventory)
+
+
+IDP:
+http://localhost:5001
+Migration:
+- add-migration InitialPersistedGrantMigration -c PersistedGrantDbContext -o Migrations/IdentityServer/PersistedGrantDb
+- add-migration InitialConfigurationMigration -c ConfigurationDbContext -o Migrations/IdentityServer/ConfigurationDb
