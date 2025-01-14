@@ -4,6 +4,7 @@ using Customer.API.Controllers;
 using Customer.API.Extensions;
 using Customer.API.Persistence;
 using HealthChecks.UI.Client;
+using Infrastructure.Identity;
 using Infrastructure.Middlewares;
 using Infrastructure.ScheduleJob;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -30,6 +31,11 @@ try
     builder.Services.AddInfrastructureServices();
     builder.Services.AddTeduHangfireService();
     builder.Services.ConfigureHealthChecks();
+    builder.Services.ConfigureSwagger();
+    builder.Services.ConfigureAuthenticationHandler();
+    builder.Services.ConfigureAuthorization();
+
+    
 
     var app = builder.Build();
 
@@ -41,7 +47,12 @@ try
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.OAuthClientId("tedu-microservice_swagger");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer API V1");
+            c.DisplayRequestDuration();
+        });
     }
 
     app.UseMiddleware<ErrorWrappingMiddleware>();

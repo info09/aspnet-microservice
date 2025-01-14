@@ -10,7 +10,7 @@ namespace Customer.API.Controllers
             {
                 var result = await customerService.GetCustomerByUsernameAsync(username);
                 return result != null ? result : Results.NotFound();
-            });
+            }).RequireAuthorization("Bearer");
         }
     }
 }
