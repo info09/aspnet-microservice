@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Infrastructure.Identity.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Product.API.Entities;
 using Product.API.Repositories.Interfaces;
+using Shared.Common.Constants;
 using Shared.Dtos.Product;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,6 +27,7 @@ namespace Product.API.Controllers
         #region CRUD
 
         [HttpGet]
+        [ClaimRequirement(FunctionCode.PRODUCT, CommandCode.VIEW)]
         public async Task<IActionResult> GetAll()
         {
             var products = await _productRepository.GetProducts();
@@ -33,6 +36,7 @@ namespace Product.API.Controllers
         }
 
         [HttpGet("{id:long}")]
+        [ClaimRequirement(FunctionCode.PRODUCT, CommandCode.VIEW)]
         public async Task<IActionResult> GetById(long id)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -41,7 +45,7 @@ namespace Product.API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [ClaimRequirement(FunctionCode.PRODUCT, CommandCode.CREATE)]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto productDto)
         {
             var productEntity = await _productRepository.GetProductByNo(productDto.No);
@@ -56,6 +60,7 @@ namespace Product.API.Controllers
         }
 
         [HttpPut("{id:long}")]
+        [ClaimRequirement(FunctionCode.PRODUCT, CommandCode.UPDATE)]
         public async Task<IActionResult> UpdateProduct(long id, [FromBody] UpdateProductDto productDto)
         {
             var product = await _productRepository.GetProduct(id);
@@ -70,7 +75,7 @@ namespace Product.API.Controllers
         }
 
         [HttpDelete("{id:long}")]
-        [Authorize]
+        [ClaimRequirement(FunctionCode.PRODUCT, CommandCode.DELETE)]
         public async Task<IActionResult> DeleteProduct([Required] long id)
         {
             var product = await _productRepository.GetProduct(id);
@@ -86,6 +91,7 @@ namespace Product.API.Controllers
         #region Additional Resources
 
         [HttpGet("get-product-by-no/{productNo}")]
+        [ClaimRequirement(FunctionCode.PRODUCT, CommandCode.VIEW)]
         public async Task<IActionResult> GetProductByNo([Required] string productNo)
         {
             var product = await _productRepository.GetProductByNo(productNo);
