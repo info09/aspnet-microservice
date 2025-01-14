@@ -18,6 +18,10 @@ namespace OcelotApiGw.Extensions
             var jwtSettings = configuration.GetSection(nameof(JwtSettings))
             .Get<JwtSettings>();
             services.AddSingleton(jwtSettings);
+
+            var apiConfiguration = configuration.GetSection(nameof(ApiConfiguration)).Get<ApiConfiguration>();
+            services.AddSingleton(apiConfiguration);
+
             return services;
         }
 
@@ -28,7 +32,7 @@ namespace OcelotApiGw.Extensions
             .AddCacheManager(x => x.WithDictionaryHandle());
 
             services.AddTransient<ITokenService, TokenService>();
-            services.AddJwtAuthentication();
+            //services.AddJwtAuthentication();
         }
 
         internal static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
