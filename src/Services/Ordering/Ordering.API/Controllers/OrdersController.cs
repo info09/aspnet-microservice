@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Features.Orders.Command.CreateOrder;
 using Ordering.Application.Features.Orders.Command.DeleteOrder;
@@ -16,6 +17,7 @@ namespace Ordering.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "Bearer")]
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;

@@ -6,6 +6,7 @@ using Ordering.Infrastructure;
 using Ordering.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using Infrastructure.Identity;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -26,10 +27,13 @@ try
     builder.Services.ConfigureMassTransit();
     builder.Services.ConfigureHealthCheck();
 
+    builder.Services.ConfigureAuthenticationHandler();
+    builder.Services.ConfigureAuthorization();
+
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.ConfigureSwagger();
 
     var app = builder.Build();
 
@@ -37,7 +41,12 @@ try
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.OAuthClientId("tedu-microservice_swagger");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order API V1");
+            c.DisplayRequestDuration();
+        });
     }
 
     using (var scope = app.Services.CreateScope())

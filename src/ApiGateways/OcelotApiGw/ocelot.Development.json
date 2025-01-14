@@ -301,7 +301,11 @@
           "Host": "localhost",
           "Port": 5005
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/Orders/{id}",
@@ -317,7 +321,11 @@
           "Host": "localhost",
           "Port": 5005
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/Orders/document-no/{documentNo}",
@@ -331,7 +339,11 @@
           "Host": "localhost",
           "Port": 5005
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
   ]
 }

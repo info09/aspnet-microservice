@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Ordering.Application.Common.Interfaces;
+using Ordering.Domain.Entities;
 using Serilog;
 using Shared.Dtos.Order;
 using Shared.SeedWorks;
@@ -25,7 +26,20 @@ namespace Ordering.Application.Features.Orders.Queries.GetOrders
             _logger.Information($"BEGIN: {MethodName} - Username: {request.Username}");
 
             var orderEntities = await _orderRepository.GetOrdersByUserName(request.Username);
-            var orderList = _mapper.Map<List<OrderDto>>(orderEntities);
+            //var orderList = _mapper.Map<List<OrderDto>>(orderEntities);
+            var orderList = orderEntities.Select(i => new OrderDto()
+            {
+                Id = i!.Id,
+                DocumentNo = i.DocumentNo.ToString(),
+                EmailAddress = i.EmailAddress,
+                FirstName = i.FirstName,
+                InvoiceAddress = i.InvoiceAddress,
+                LastName = i.LastName,
+                ShippingAddress = i.ShippingAddress,
+                Status = i.Status,
+                TotalPrice = i.TotalPrice,
+                UserName = i.UserName,
+            }).ToList();
 
             _logger.Information($"END: {MethodName} - Username: {request.Username}");
 
