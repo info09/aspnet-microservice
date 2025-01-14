@@ -7,14 +7,19 @@ namespace Product.API.Extensions
         public static void UseInfrastructure(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.OAuthClientId("tedu-microservice_swagger");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+                c.DisplayRequestDuration();
+            });
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseRouting();
             //app.UseHttpsRedirection();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

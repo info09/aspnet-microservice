@@ -10,6 +10,7 @@ namespace Product.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "Bearer")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
