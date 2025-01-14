@@ -5,6 +5,7 @@ using Basket.API.Repositories.Interfaces;
 using Basket.API.Services.Interfaces;
 using EventBus.Messages.IntegrationEvents.Events;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Shared.Dtos.Basket;
@@ -15,6 +16,7 @@ namespace Basket.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Policy = "Bearer")]
     public class BasketsController : ControllerBase
     {
         private readonly IBasketRepository _basketRepository;

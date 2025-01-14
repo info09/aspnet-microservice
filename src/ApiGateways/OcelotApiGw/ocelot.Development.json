@@ -16,7 +16,11 @@
           "Host": "localhost",
           "Port": 5003
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     //Product API: http://localhost:5002/api/products
     //GetAll, Create
@@ -153,7 +157,11 @@
           "Host": "localhost",
           "Port": 5004
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/baskets",
@@ -167,7 +175,11 @@
           "Host": "localhost",
           "Port": 5004
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/baskets/{userName}",
@@ -181,7 +193,11 @@
           "Host": "localhost",
           "Port": 5004
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/baskets/checkout",
@@ -195,7 +211,11 @@
           "Host": "localhost",
           "Port": 5004
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     // Inventory API: http://localhost:5006/api/Inventory
     {
