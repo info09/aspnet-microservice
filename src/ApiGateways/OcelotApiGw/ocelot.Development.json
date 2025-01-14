@@ -230,7 +230,11 @@
           "Host": "localhost",
           "Port": 5006
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/inventory/items/{itemNo}/paging",
@@ -244,7 +248,11 @@
           "Host": "localhost",
           "Port": 5006
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/inventory/{id}",
@@ -258,7 +266,11 @@
           "Host": "localhost",
           "Port": 5006
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/inventory/{id}",
@@ -272,7 +284,11 @@
           "Host": "localhost",
           "Port": 5006
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/inventory/purchase/{itemNo}",
@@ -286,7 +302,11 @@
           "Host": "localhost",
           "Port": 5006
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     // Order API: http://localhost:5005/api/Orders
     {

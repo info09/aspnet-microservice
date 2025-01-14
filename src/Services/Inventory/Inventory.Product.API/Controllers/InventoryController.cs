@@ -1,5 +1,6 @@
 ﻿using Inventory.Product.API.Extensions;
 using Inventory.Product.API.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Dtos.Inventory;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ namespace Inventory.Product.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "Bearer")]
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryService _inventoryService;
